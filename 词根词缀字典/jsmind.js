@@ -16,6 +16,7 @@
   // author
   var __author__ = 'hizzgdev@163.com';
 
+  $w.$ = (q) => document.querySelector(q)
   // an noop function define
   var _noop = function () { };
   var logger = (typeof console === 'undefined') ? {
@@ -49,14 +50,14 @@
   if (typeof String.prototype.startsWith != 'function') { String.prototype.startsWith = function (p) { return this.slice(0, p.length) === p; }; }
 
   var DEFAULT_OPTIONS = {
-    container: '',   // id of the container
+    container: 'jsmind_container',   // id of the container
     editable: false, // you can change it in your options
-    theme: null,
+    theme: 'primary',
     mode: 'full',    // full or side
     support_html: true,
 
     view: {
-      engine: 'canvas',
+      engine: 'svg',
       hmargin: 100,
       vmargin: 50,
       line_width: 2,
@@ -1261,6 +1262,7 @@
     show: function (mind) {
       this._reset();
       this._show(mind);
+      this.select_node(this.view.get_binded_nodeid($('jmnode.root')))
     },
 
     get_meta: function () {
@@ -1423,6 +1425,7 @@
           logger.error('the node[id=' + node + '] can not be found.');
           return;
         } else {
+          document.getElementById("jsmind_describe").innerHTML = the_node.topic + " : " + the_node.data.describe;
           return this.select_node(the_node);
         }
       }

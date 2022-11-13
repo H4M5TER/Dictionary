@@ -1,17 +1,34 @@
 <body>
   <link type="text/css" rel="stylesheet" href="jsmind.css">
   <script type="text/javascript" src="jsmind.js"></script>
-  <input id="entry" onchange="show()">
+  <input id="entry" value="serve" onchange="show()">
+  <select id="theme" onchange="show()">
+    <option value="primary">primary</option>
+    <option value="warning">warning</option>
+    <option value="danger">danger</option>
+    <option value="success">success</option>
+    <option value="info">info</option>
+    <option value="greensea">greensea</option>
+    <option value="nephrite">nephrite</option>
+    <option value="belizehole">belizehole</option>
+    <option value="wisteria">wisteria</option>
+    <option value="asphalt">asphalt</option>
+    <option value="orange">orange</option>
+    <option value="pumpkin">pumpkin</option>
+    <option value="pomegranate">pomegranate</option>
+    <option value="clouds">clouds</option>
+    <option value="asbestos">asbestos</option>
+  </select>
   <p id="jsmind_describe"></p>
   <p id="jsmind_container"></p>
   <script>
     var data
     fetch('./data.json').then(res => res.json()).then(json => { data = json }).catch(console.error)
     function show() {
-      document.getElementById('jsmind_describe').innerText = ''
-      document.getElementById('jsmind_container').innerHTML = ''
-      jsMind.show({}, data[document.getElementById('entry').value])
-      document.getElementById('jsmind_container').style.height = document.querySelector('svg.jsmind').scrollHeight
+      $('#jsmind_container').innerHTML = ''
+      $('#jsmind_describe').innerText = ''
+      jsMind.show({ theme: $('#theme').value }, data[$('#entry').value])
+      $('#jsmind_container').style.height = $('jmnodes').style.height
     }
   </script>
 </body>
